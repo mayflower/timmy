@@ -37,15 +37,18 @@ public class MainActivity
     
     	EditText textFrom = (EditText) this.findViewById(R.id.editText1);
     	EditText textTo = (EditText) this.findViewById(R.id.editText2);
+    	EditText textDescription = (EditText) this.findViewById(R.id.editText3);
     	
     	String fromString = textFrom.getText().toString();
     	String toString = textTo.getText().toString();
+    	String descriptionString = textDescription.getText().toString();
     	
     	Log.i("TextFrom", fromString);
     	Log.i("TextTo", toString);
+    	Log.i("TextDescription", descriptionString);
     	
     	// Check parameters:
-    	if (fromString.equals("") || toString.equals("")) {
+    	if (fromString.equals("") || toString.equals("") || descriptionString.equals("")) {
     		Toast.makeText(this, "Arbeitszeit konnte nicht gebucht werden...", Toast.LENGTH_SHORT).show();
     	} else {
     	
@@ -62,12 +65,10 @@ public class MainActivity
 	    	calendar.set(2013,3,1,11,11,0);
 	    	//Date to = calendar.getTime();
 	    	String to = "2013-03-01T" + toString + ":00.123Z";
-	    	
-	    	String description = "Default Track";
 	    
 	    	// Build parameter list:
 	    	HashMap<String,Object> params = new HashMap();
-	    	params.put("description", description);
+	    	params.put("description", descriptionString);
 	    	params.put("start",from);
 	    	params.put("end", to);
 	    	

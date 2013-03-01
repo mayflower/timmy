@@ -1,0 +1,11 @@
+{
+  "name": "timmy-demoservice",
+  "description": "A demo service for timmy",
+  "author": "Christian Albrecht <christian.albrecht@mayflower.de>",
+  "version": "0.0.1",
+  "dependencies": {
+    "restful": "",
+    "resourceful": ""
+  },
+  "engine": "node >= 0.4.1"
+}

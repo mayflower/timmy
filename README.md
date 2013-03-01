@@ -10,3 +10,4 @@ To setup demo service:
     $ npm install
     $ ./daemon.js
 
+Visit http://localhost:8000/

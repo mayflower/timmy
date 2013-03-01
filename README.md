@@ -14,15 +14,5 @@ Visit http://localhost:8000/
 
 
 
-    curl -X POST 'http://localhost:8000/tracks/new' -d 'description=hey niu track&start=1&end=2'
+    curl -X POST 'http://localhost:8000/tracks/new' -H 'Content-Type: application/json;' -d '{"description":"hey niu niu track", "start":"2013-02-01T12:10:10.123Z", "end":"2013-02-01T14:10:10.123Z"}'
 
-    {"track":
-        {
-         "id":"c80acb2f-a253-4f2e-bbc4-9fe09862592b",
-         "description":"hey niu track",
-         "start":1,
-         "end":2,
-         "duration":10,
-         "resource":"Track"
-         }
-    }

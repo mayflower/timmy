@@ -1,5 +1,12 @@
 package de.mayflower.timmy;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
+import org.codehaus.jackson.map.ObjectMapper;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,17 +38,56 @@ public class MainActivity
     	EditText textFrom = (EditText) this.findViewById(R.id.editText1);
     	EditText textTo = (EditText) this.findViewById(R.id.editText2);
     	
-    	Log.i("TextFrom", textFrom.getText().toString());
-    	Log.i("TextTo", textTo.getText().toString());
+    	String fromString = textFrom.getText().toString();
+    	String toString = textTo.getText().toString();
     	
-    	// Call REST Service
+    	Log.i("TextFrom", fromString);
+    	Log.i("TextTo", toString);
     	
-    	// ...
+    	// Check parameters:
+    	if (fromString.equals("") || toString.equals("")) {
+    		Toast.makeText(this, "Arbeitszeit konnte nicht gebucht werden...", Toast.LENGTH_SHORT).show();
+    	} else {
     	
-    	// Print OK message and clear form....
-    	textFrom.setText("");
-    	textTo.setText("");
-    	Toast.makeText(this, "Arbeitszeit wurde gebucht...", Toast.LENGTH_SHORT).show();  
+	    	// Call REST Service
+	    	
+	    	String url = "http://cat510.muc.mayflower.de:8000/tracks";
+	    	Calendar calendar = Calendar.getInstance();
+	    	
+	    	// Set parameters:
+	    	calendar.set(2013,3,1,11,11,0);
+	    	//Date from = calendar.getTime();
+	    	String from = "2013-03-01T" + fromString + ":00.123Z";
+	    	
+	    	calendar.set(2013,3,1,11,11,0);
+	    	//Date to = calendar.getTime();
+	    	String to = "2013-03-01T" + toString + ":00.123Z";
+	    	
+	    	String description = "Default Track";
+	    
+	    	// Build parameter list:
+	    	HashMap<String,Object> params = new HashMap();
+	    	params.put("description", description);
+	    	params.put("start",from);
+	    	params.put("end", to);
+	    	
+	    	// JSon conversion:
+	    	ObjectMapper mapper = new ObjectMapper();
+	    	String postData = null;   	
+	    	try {
+	    		postData = mapper.writeValueAsString (params);
+	    	} catch(Exception e) {
+	    		Log.e("OnClick", "JSon Mapping failed!");
+	    	}
+	    	
+	    	new AjaxHelper.MakeRequestTask(url, postData).execute();
+	    	// ...
+	    	
+	    	// Print OK message and clear form....
+	    	textFrom.setText("");
+	    	textTo.setText("");
+	    	Toast.makeText(this, "Arbeitszeit wurde gebucht...", Toast.LENGTH_SHORT).show();  
+    	}
     	
     	Log.i("OnClick", "END");
     

@@ -1,10 +1,5 @@
 package de.mayflower.timmy;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-
 import org.codehaus.jackson.map.ObjectMapper;
 
 import android.os.Bundle;
@@ -55,28 +50,17 @@ public class MainActivity
 	    	// Call REST Service
 	    	
 	    	String url = "http://cat510.muc.mayflower.de:8000/tracks";
-	    	Calendar calendar = Calendar.getInstance();
 	    	
-	    	// Set parameters:
-	    	calendar.set(2013,3,1,11,11,0);
-	    	//Date from = calendar.getTime();
-	    	String from = "2013-03-01T" + fromString + ":00.123Z";
-	    	
-	    	calendar.set(2013,3,1,11,11,0);
-	    	//Date to = calendar.getTime();
-	    	String to = "2013-03-01T" + toString + ":00.123Z";
-	    
-	    	// Build parameter list:
-	    	HashMap<String,Object> params = new HashMap();
-	    	params.put("description", descriptionString);
-	    	params.put("start",from);
-	    	params.put("end", to);
+	    	Request req = new Request();
+	    	req.setDescription(descriptionString);
+	    	req.setStartTime(fromString);
+	    	req.setEndTime(toString);
 	    	
 	    	// JSon conversion:
 	    	ObjectMapper mapper = new ObjectMapper();
 	    	String postData = null;   	
 	    	try {
-	    		postData = mapper.writeValueAsString (params);
+	    		postData = mapper.writeValueAsString (req.format());
 	    	} catch(Exception e) {
 	    		Log.e("OnClick", "JSon Mapping failed!");
 	    	}

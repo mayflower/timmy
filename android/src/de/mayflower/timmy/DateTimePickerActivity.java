@@ -1,5 +1,6 @@
 package de.mayflower.timmy;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import android.os.Build;
@@ -35,6 +36,15 @@ public class DateTimePickerActivity extends Activity {
         
 	        field = intent.getStringExtra(MainActivity.FIELD_MESSAGE);
 	        
+	        Date date = (Date)intent.getSerializableExtra(MainActivity.FIELD_DATA);
+	        
+	        TimePicker timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
+			DatePicker datePicker1 = (DatePicker) findViewById(R.id.datePicker1);
+			
+			timePicker1.setCurrentHour(date.getHours());
+			timePicker1.setCurrentMinute(date.getMinutes());
+			
+			datePicker1.updateDate(date.getYear()+1900, date.getMonth(), date.getDate());
         }
 	}
 

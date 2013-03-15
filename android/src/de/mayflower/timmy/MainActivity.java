@@ -21,12 +21,13 @@ public class MainActivity
 	{
 	
 	public static final String FIELD_MESSAGE = "de.mayflower.timmy.FIELD_MESSAGE";
+	public static final String FIELD_DATA = "de.mayflower.timmy.DATA_MESSAGE";
 	
 	public static final String FIELD_VALUE_VON = "von";
 	public static final String FIELD_VALUE_BIS = "bis";
 	
-	static String from = "";
-	static String to = "";
+	static String from = DateFormatter.convertToString(new Date());
+	static String to = DateFormatter.convertToString(new Date());
 	static String description = "";
 	
 	public void saveValues() {
@@ -74,10 +75,10 @@ public class MainActivity
 	        	
 	        	if (field.equals(FIELD_VALUE_VON)) {
 	        		EditText textFrom = (EditText) this.findViewById(R.id.editText1);
-		        	textFrom.setText(Integer.toString(message.getHours()) + ":" + Integer.toString(message.getMinutes()));
+		        	textFrom.setText(DateFormatter.convertToString(message));
 	        	} else {
 	        		EditText textTo = (EditText) this.findViewById(R.id.editText2);
-	        		textTo.setText(Integer.toString(message.getHours()) + ":" + Integer.toString(message.getMinutes()));
+	        		textTo.setText(DateFormatter.convertToString(message));
 	        	}
 	        	
 	        	
@@ -148,8 +149,8 @@ public class MainActivity
     		EditText textFrom = (EditText) this.findViewById(R.id.editText1);
 	    	EditText textTo = (EditText) this.findViewById(R.id.editText2);
 	    	// Print OK message and clear form....
-	    	textFrom.setText("");
-	    	textTo.setText("");
+	    	textFrom.setText(DateFormatter.convertToString(new Date()));
+	    	textTo.setText(DateFormatter.convertToString(new Date()));
 	    	
 	    	Toast.makeText(this, "Arbeitszeit wurde gebucht für Task: " + req.track.description, Toast.LENGTH_SHORT).show();
     		
@@ -175,6 +176,9 @@ public class MainActivity
 
     	intent.putExtra(FIELD_MESSAGE, FIELD_VALUE_VON);
     	
+    	EditText textFrom = (EditText) this.findViewById(R.id.editText1);
+    	intent.putExtra(FIELD_DATA, DateFormatter.convertToDate(textFrom.getText().toString()));
+    	
     	startActivity(intent);
     	
     }
@@ -186,6 +190,9 @@ public class MainActivity
     	Intent intent = new Intent(this, DateTimePickerActivity.class);
     	
     	intent.putExtra(FIELD_MESSAGE, FIELD_VALUE_BIS);
+    	
+    	EditText textTo = (EditText) this.findViewById(R.id.editText2);
+    	intent.putExtra(FIELD_DATA, DateFormatter.convertToDate(textTo.getText().toString()));
     	
     	startActivity(intent);
     	

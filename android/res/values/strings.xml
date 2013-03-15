@@ -4,5 +4,6 @@
     <string name="app_name">Timmy</string>
     <string name="hello_world">Hello Timmy!!!! :=)</string>
     <string name="menu_settings">Settings</string>
+    <string name="title_activity_date_time_picker">DateTimePickerActivity</string>
 
 </resources>

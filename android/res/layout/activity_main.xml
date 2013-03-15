@@ -55,6 +55,28 @@
         android:layout_centerHorizontal="true"
         android:minHeight="80dp"
         android:minWidth="200dp"
+        android:onClick="onClick"
         android:text="Buchen" />
+
+    <Button
+        android:id="@+id/Button3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText2"
+        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignLeft="@+id/button2"
+        android:onClick="showDateTimePickerBis"
+        android:text="..." />
+
+    <Button
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/editText1"
+        android:layout_toRightOf="@+id/editText1"
+        android:onClick="showDateTimePickerVon"
+        android:text="..." />
 
 </RelativeLayout>

@@ -49,7 +49,7 @@ public class MainActivity
     	
 	    	// Call REST Service
 	    	
-	    	String url = "http://cat510.muc.mayflower.de:8000/tracks";
+	    	String url = "http://172.19.1.12:8000/tracks";
 	    	
 	    	Request req = new Request();
 	    	req.setDescription(descriptionString);
@@ -65,17 +65,36 @@ public class MainActivity
 	    		Log.e("OnClick", "JSon Mapping failed!");
 	    	}
 	    	
-	    	new AjaxHelper.MakeRequestTask(url, postData).execute();
-	    	// ...
-	    	
-	    	// Print OK message and clear form....
-	    	textFrom.setText("");
-	    	textTo.setText("");
-	    	Toast.makeText(this, "Arbeitszeit wurde gebucht...", Toast.LENGTH_SHORT).show();  
+	    	new AjaxHelper.MakeRequestTask(url, postData, this).execute();
+    	
     	}
     	
     	Log.i("OnClick", "END");
     
+    }
+    
+    public void postAjaxResponse() {
+    	
+    	Log.i("postAjaxResponse",AjaxHelper.response);
+    	
+    	ObjectMapper mapper = new ObjectMapper();
+    	
+    	try {
+    		Response req = (Response) mapper.readValue(AjaxHelper.response, Response.class);
+    		
+    		EditText textFrom = (EditText) this.findViewById(R.id.editText1);
+	    	EditText textTo = (EditText) this.findViewById(R.id.editText2);
+	    	// Print OK message and clear form....
+	    	textFrom.setText("");
+	    	textTo.setText("");
+	    	
+	    	Toast.makeText(this, "Arbeitszeit wurde gebucht für Task: " + req.track.description, Toast.LENGTH_SHORT).show();
+    		
+    	} catch(Exception e) {
+    		Toast.makeText(this, "Arbeitszeit konnte nicht gebucht werden (keine Verbindung zum Server!)...", Toast.LENGTH_SHORT).show();
+    		Log.e("postAjaxResponse",AjaxHelper.response);
+    	}
+
     }
 
     @Override

@@ -13,13 +13,17 @@ import android.util.Log;
 
 public class AjaxHelper {
 
+	public static String response = null;
+	
 	public static class MakeRequestTask extends AsyncTask<URL, Integer, Long> {
 	    
 		String url = null;
 		String postData = null;
+		MainActivity mainActivity = null;
 		
-		MakeRequestTask(String m_url, String m_postData) {
+		MakeRequestTask(String m_url, String m_postData, MainActivity myMainActivity) {
 			
+			mainActivity = myMainActivity;
 			url = m_url;
 			postData = m_postData;
 			
@@ -38,7 +42,11 @@ public class AjaxHelper {
 
 	    // This is called when doInBackground() is finished
 	    protected void onPostExecute(Long result) {
+	    	
 	    	Log.i("request task", "request completed");
+	    	
+	    	mainActivity.postAjaxResponse();
+	    
 	    }
 	}
 	
@@ -80,14 +88,14 @@ public class AjaxHelper {
             istream.close();
             
         } catch (Throwable t) {
-        	Log.i("makeAjaxRequest: exception", t.getMessage());
+        	Log.e("makeAjaxRequest: exception", t.getMessage());
         }
        
         Log.i("makeAjaxRequest", contents.toString());
         
         Log.i("makeAjaxRequest", "END");
 
-        //return contents.toString();
+        response = contents.toString();
 				
 	}
 	
